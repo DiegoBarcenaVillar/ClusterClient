@@ -10,6 +10,8 @@ import scala.util.{Failure, Success}
 
 
 class ClientJobTransformationSendingActor extends Actor {
+  
+  val receptionistPort = "4579"
 
   val initialContacts = Set(
     ActorPath.fromString("akka.tcp://ClusterSystem@127.0.0.1:4579/system/receptionist"))
@@ -25,11 +27,10 @@ class ClientJobTransformationSendingActor extends Actor {
       println(result)
     }
     case Send(counter) => {
-        //val job = TransformationJob("hello-" + counter)
       
         val job = new java.lang.String("PING")
         implicit val timeout = Timeout(5 seconds)
-        val result = Patterns.ask(c,ClusterClient.Send("/user/frontend", new java.lang.String("PING"), localAffinity = true), timeout)
+       val result = Patterns.ask(c,ClusterClient.Send("/user/clusterListener" + receptionistPort, new java.lang.String("PING"), localAffinity = true), timeout)
 
         result.onComplete {
           case Success(transformationResult) => {
