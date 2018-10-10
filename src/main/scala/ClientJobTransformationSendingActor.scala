@@ -10,11 +10,13 @@ import scala.util.{Failure, Success}
 
 
 class ClientJobTransformationSendingActor extends Actor {
-  
-  val receptionistPort = "4579"
+
+  val receptionistPort = "5000"
 
   val initialContacts = Set(
-    ActorPath.fromString("akka.tcp://ClusterSystem@127.0.0.1:4579/system/receptionist"))
+    ActorPath.fromString("akka.tcp://ClusterSystem@127.0.0.1:".concat(receptionistPort)
+      .concat("/system/receptionist")))
+
   val settings = ClusterClientSettings(context.system)
     .withInitialContacts(initialContacts)
 
@@ -27,18 +29,18 @@ class ClientJobTransformationSendingActor extends Actor {
       println(result)
     }
     case Send(counter) => {
-      
-        val job = new java.lang.String("PING")
-        implicit val timeout = Timeout(5 seconds)
-       val result = Patterns.ask(c,ClusterClient.Send("/user/clusterListener" + receptionistPort, new java.lang.String("PING"), localAffinity = true), timeout)
 
-        result.onComplete {
-          case Success(transformationResult) => {
-            println(s"Client saw result: $transformationResult")
-            self ! transformationResult
-          }
-          case Failure(t) => println("An error has occured: " + t.getMessage)
+      val job = new java.lang.String("PING")
+      implicit val timeout = Timeout(5 seconds)
+      val result = Patterns.ask(c,ClusterClient.Send("/user/clusterListener", new java.lang.String("PING"), localAffinity = true), timeout)
+
+      result.onComplete {
+        case Success(transformationResult) => {
+          println(s"Client saw result: $transformationResult")
+          self ! transformationResult
         }
+        case Failure(t) => println("An error has occured: " + t.getMessage)
       }
+    }
   }
 }
