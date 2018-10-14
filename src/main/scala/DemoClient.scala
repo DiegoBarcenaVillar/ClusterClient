@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 object DemoClient {
   def main(args : Array[String]) {
 
-    val system = ActorSystem("OTHERSYSTEM")
+    val system = ActorSystem("OtherSystem")
     val clientJobTransformationSendingActor =
       system.actorOf(Props[ClientJobTransformationSendingActor],
         name = "clientJobTransformationSendingActor")

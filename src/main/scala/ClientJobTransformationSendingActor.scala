@@ -8,7 +8,6 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
 
-
 class ClientJobTransformationSendingActor extends Actor {
 
   val receptionistPort = "5000"
@@ -21,7 +20,6 @@ class ClientJobTransformationSendingActor extends Actor {
     .withInitialContacts(initialContacts)
 
   val c = context.system.actorOf(ClusterClient.props(settings), "demo-client")
-
 
   def receive = {
     case TransformationResult(result) => {
