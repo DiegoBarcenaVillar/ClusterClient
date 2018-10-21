@@ -21,24 +21,33 @@ class ClientJobTransformationSendingActor extends Actor {
 
   val c = context.system.actorOf(ClusterClient.props(settings), "demo-client")
 
+  implicit val timeout = Timeout(5 seconds)
+
   def receive = {
-    case TransformationResult(result) => {
-      println("Client response")
-      println(result)
+
+    case msg:String =>{
+      println(s"Client saw result: $msg")
+      println("")
     }
-    case Send(counter) => {
 
-      val job = new java.lang.String("PING")
-      implicit val timeout = Timeout(5 seconds)
-      val result = Patterns.ask(c,ClusterClient.Send("/user/clusterListener", new java.lang.String("PING"), localAffinity = true), timeout)
+    case SendString(query) =>{
+      processSend(query)
+    }
 
-      result.onComplete {
-        case Success(transformationResult) => {
-          println(s"Client saw result: $transformationResult")
-          self ! transformationResult
-        }
-        case Failure(t) => println("An error has occured: " + t.getMessage)
+    case SendInt(counter) => {
+      processSend ("PING")
+    }
+  }
+
+  def processSend (text:String ) :  Unit= {
+
+    val result = Patterns.ask(c,ClusterClient.Send("/user/clusterListener", text, localAffinity = true), timeout)
+
+    result.onComplete {
+      case Success(transformationResult) => {
+        self ! transformationResult
       }
+      case Failure(t) => println("An error has occured: " + t.getMessage)
     }
   }
 }
