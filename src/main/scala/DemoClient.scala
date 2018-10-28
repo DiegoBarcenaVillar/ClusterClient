@@ -30,7 +30,7 @@ object DemoClient {
     var sqlQuery: String = null
 
     do {
-      Thread.currentThread().join(1000l)
+      Thread.currentThread().join(2000l)
       println("Enter your SQL Query or EXIT to exit the Session:")
       sqlQuery = StdIn.readLine()
 
