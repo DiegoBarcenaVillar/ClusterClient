@@ -1,13 +1,10 @@
-
 import akka.actor.{ActorRef, ActorSystem, Props}
 import scala.io.StdIn
-//import scala.concurrent.ExecutionContext
-//import scala.concurrent.Future
-//import ExecutionContext.Implicits.global
-//import scala.util.{Success, Failure}
 
 object DemoClient {
   def main(args : Array[String]) {
+
+    System.setProperty("hadoop.home.dir", "C:\\winutils_hadoop2.6.0\\");
 
     val system = ActorSystem("OtherSystem")
     var clientJobTransformationSendingActor: ActorRef = null
@@ -15,17 +12,7 @@ object DemoClient {
     clientJobTransformationSendingActor = system.actorOf(Props[ClientJobTransformationSendingActor],
                                         name = "clientJobTransformationSendingActor")
 
-//    val futureActorRef: Future[ActorRef] = Future {
-//      system.actorOf(Props[ClientJobTransformationSendingActor],
-//        name = "clientJobTransformationSendingActor")
-//
-//    }
-//
-//
-//    futureActorRef onComplete {
-//      case Success(futureActorRefResult) => clientJobTransformationSendingActor = futureActorRefResult
-//      case Failure(t) => println("Could not process file: " + t.getMessage)
-//    }
+    clientJobTransformationSendingActor ! SendString("GET COLUMNS")
 
     var sqlQuery: String = null
 
@@ -34,17 +21,12 @@ object DemoClient {
       println("Enter your SQL Query or EXIT to exit the Session:")
       sqlQuery = StdIn.readLine()
 
-      println(s"Your Query is: $sqlQuery")
-
       if (!sqlQuery.equalsIgnoreCase("EXIT"))
         clientJobTransformationSendingActor ! SendString(sqlQuery)
 
-    }while(!sqlQuery.equalsIgnoreCase("EXIT"))
+      println(s"Your Query is: $sqlQuery")
 
+    }while(!sqlQuery.equalsIgnoreCase("EXIT"))
     system.terminate()
   }
 }
-
-
-
-

@@ -6,41 +6,53 @@
   
     <dependencies>
   
-	<dependency>
-	    <groupId>com.typesafe.akka</groupId>
-	    <artifactId>akka-actor_2.11</artifactId>
-		<version>${akka.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>com.typesafe.akka</groupId>
-	    <artifactId>akka-remote_2.11</artifactId>
-		<version>${akka.version}</version>
-	</dependency>
-  	<dependency>
-		<groupId>com.typesafe.akka</groupId>
-		<artifactId>akka-cluster_2.11</artifactId>
-		<version>${akka.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>com.typesafe.akka</groupId>
-		<artifactId>akka-cluster-metrics_2.11</artifactId>
-		<version>${akka.version}</version>
-	</dependency>	
-	<dependency>
-	    <groupId>com.typesafe.akka</groupId>
-	    <artifactId>akka-cluster-tools_2.11</artifactId>
-		<version>${akka.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>com.typesafe.akka</groupId>
-	    <artifactId>akka-contrib_2.11</artifactId>
-		<version>${akka.version}</version>
-	</dependency>
-		
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-actor_2.11</artifactId>
+			<version>${akka.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-remote_2.11</artifactId>
+			<version>${akka.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-cluster_2.11</artifactId>
+			<version>${akka.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-cluster-metrics_2.11</artifactId>
+			<version>${akka.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-cluster-tools_2.11</artifactId>
+			<version>${akka.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-contrib_2.11</artifactId>
+			<version>${akka.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.typesafe.akka</groupId>
 			<artifactId>akka-http-spray-json_2.11</artifactId>
 			<version>10.1.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-core_2.11</artifactId>
+			<version>2.3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-sql_2.11</artifactId>
+			<version>2.3.2</version>
 		</dependency>
 
   </dependencies>
