@@ -12,12 +12,14 @@ object DemoClient {
     clientJobTransformationSendingActor = system.actorOf(Props[ClientJobTransformationSendingActor],
                                         name = "clientJobTransformationSendingActor")
 
-    clientJobTransformationSendingActor ! SendString("GET COLUMNS")
+    clientJobTransformationSendingActor ! SendString("GET COLUMNS PARQUET")
+
+    clientJobTransformationSendingActor ! SendString("GET COLUMNS CSV")
 
     var sqlQuery: String = null
 
     do {
-      Thread.currentThread().join(2000l)
+      Thread.currentThread().join(5*1000l)
       println("Enter your SQL Query or EXIT to exit the Session:")
       sqlQuery = StdIn.readLine()
 
